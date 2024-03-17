@@ -1,0 +1,29 @@
+@import url("https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;400;600&display=swap");
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply font-poppins bg-slate-200 text-slate-800;
+  }
+
+  #logo {
+    @apply text-slate-50;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  #logo {
+    @apply font-kanit;
+  }
+
+  h1 {
+    @apply mb-4 mt-2 text-4xl font-bold;
+  }
+}
