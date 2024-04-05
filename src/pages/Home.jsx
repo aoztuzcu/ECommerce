@@ -60,7 +60,7 @@ const Home = () => {
           Daha Fazla
         </Button>
       </div>
-      <div style={{ height: "1000vh", backgroundColor: "#eee" }}></div>
+      {/* <div style={{ height: "1000vh", backgroundColor: "#eee" }}></div> */}
     </div>
   );
 };
