@@ -27,7 +27,7 @@ async function fetchProductById(id) {
 }
 
 async function searchProducts(query) {
-  const response = await request.get("products", {
+  const response = await request.get("products/search", {
     params: {
       q: query,
     },
@@ -45,6 +45,24 @@ async function fetchProductsByCategory(slug) {
   return response.data;
 }
 
+// cart requests
+
+async function addNewCart(userId, products) {
+  const response = await request.post("carts/add", {
+    userId,
+    products,
+  });
+  return response.data;
+}
+
+async function updateCart(cartId, products) {
+  const response = await request.put(`carts/${cartId}`, {
+    merge: true,
+    products,
+  });
+  return response.data;
+}
+
 export {
   login,
   fetchProducts,
@@ -52,4 +70,6 @@ export {
   searchProducts,
   getCategories,
   fetchProductsByCategory,
+  addNewCart,
+  updateCart,
 };

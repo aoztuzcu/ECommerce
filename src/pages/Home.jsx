@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { throttle } from "@/utils/helpers";
 import ProductList from "@/components/feature/ProductList";
 import Button from "@/components/base/Button";
 
@@ -25,6 +26,18 @@ const Home = () => {
     handleGoToTop();
   }, [skip]);
 
+  const handleScroll = (e) => {
+    console.log(e);
+  };
+
+  const throttleScroll = throttle(handleScroll, 500);
+
+  useEffect(() => {
+    window.addEventListener("scroll", throttleScroll);
+
+    return () => window.removeEventListener("scroll", throttleScroll);
+  }, []);
+
   return (
     <div className="container">
       <p className="text-right">{skip / 20 + 1}. Sayfa Görüntüleniyor </p>
@@ -47,6 +60,7 @@ const Home = () => {
           Daha Fazla
         </Button>
       </div>
+      <div style={{ height: "1000vh", backgroundColor: "#eee" }}></div>
     </div>
   );
 };

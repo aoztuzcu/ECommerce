@@ -4,10 +4,11 @@ import { useSelector, useDispatch } from "react-redux";
 import {
   fetchProductsAsync,
   fetchProductsByCategoryAsync,
+  searchProductsAsync,
 } from "@/store/productsSlice";
 import ProductCard from "@/components/block/ProductCard";
 
-const ProductList = ({ limit, skip, title, slug }) => {
+const ProductList = ({ limit, skip, title, slug, term }) => {
   const dispatch = useDispatch();
   const products = useSelector((state) => state.products.items);
   const isLoading = useSelector((state) => state.products.isLoading);
@@ -15,6 +16,8 @@ const ProductList = ({ limit, skip, title, slug }) => {
   useEffect(() => {
     if (slug) {
       dispatch(fetchProductsByCategoryAsync(slug));
+    } else if (term) {
+      dispatch(searchProductsAsync(term));
     } else {
       dispatch(
         fetchProductsAsync({
@@ -23,7 +26,7 @@ const ProductList = ({ limit, skip, title, slug }) => {
         })
       );
     }
-  }, [dispatch, limit, skip, slug]);
+  }, [dispatch, limit, skip, slug, term]);
 
   if (isLoading) {
     return <h1>Loading...</h1>;
@@ -52,6 +55,7 @@ ProductList.propTypes = {
   limit: PropTypes.number,
   skip: PropTypes.number,
   title: PropTypes.string,
+  term: PropTypes.string,
 };
 
 export default ProductList;

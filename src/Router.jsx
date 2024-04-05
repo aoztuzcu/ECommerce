@@ -3,13 +3,17 @@ import { Suspense, lazy } from "react"; //Suspense component yüklenmeden önce 
 import BaseLayout from "@/layouts/BaseLayout";
 import { RouterProvider } from "react-router-dom";
 import AuthLayout from "./layouts/AuthLayout";
+import CartLayout from "./layouts/CartLayout";
 
 const HomePage = lazy(() => import("@/pages/Home"));
 const CheckoutPage = lazy(() => import("@/pages/Checkout"));
 const CartPage = lazy(() => import("@/pages/Cart"));
+const GuestCartPage = lazy(() => import("@/pages/GuestCart"));
 const NotFoundPage = lazy(() => import("@/pages/NotFound"));
 const AuthPage = lazy(() => import("@/pages/Auth"));
 const CategoryPage = lazy(() => import("@/pages/Category"));
+const SearchResultPage = lazy(() => import("@/pages/SearchResult"));
+const ProductDetailPage = lazy(() => import("@/pages/ProductDetail"));
 
 export const router = createBrowserRouter([
   {
@@ -20,10 +24,7 @@ export const router = createBrowserRouter([
         index: true,
         element: <HomePage />,
       },
-      {
-        path: "cart",
-        element: <CartPage />,
-      },
+
       {
         path: "checkout",
         element: <CheckoutPage />,
@@ -31,6 +32,28 @@ export const router = createBrowserRouter([
       {
         path: "category/:slug",
         element: <CategoryPage />,
+      },
+      {
+        path: "search-results",
+        element: <SearchResultPage />,
+      },
+      {
+        path: "product/:title/:id",
+        element: <ProductDetailPage />,
+      },
+    ],
+  },
+  {
+    path: "/cart",
+    element: <CartLayout />,
+    children: [
+      {
+        index: true,
+        element: <CartPage />,
+      },
+      {
+        path: "guest",
+        element: <GuestCartPage />,
       },
     ],
   },

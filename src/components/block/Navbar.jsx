@@ -33,7 +33,7 @@ const Navbar = () => {
       <div className="relative z-20 bg-primary-dark">
         <ul className="flex items-center justify-center gap-4 py-3 ">
           <NavItem to="/" onMouseEnter={() => setIsOpen(true)}>
-            Tüm Ürünler
+            Kategoriler
           </NavItem>
           {navbarItems.map((item, index) => (
             <NavItem key={index} to={item.to}>

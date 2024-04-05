@@ -7,7 +7,7 @@ import Userbar from "@/components/block/Userbar";
 
 const Header = () => {
   return (
-    <header className="mb-4 sticky top-0">
+    <header className="mb-4 sticky top-0 z-30">
       <Topbar />
       <section className="flex justify-center items-center gap-4 bg-primary py-4 relative z-20">
         <Logo />

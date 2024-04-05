@@ -8,7 +8,7 @@ const Footer = () => {
     "text-slate-50 hover:text-slate-300 transition duration-300 ease-in-out";
 
   return (
-    <footer className="bg-primary-dark py-10">
+    <footer className="bg-primary-dark py-10 mt-2">
       <div className="container">
         <section className="flex items-center justify-between gap-6 flex-col">
           <ul className={ulCls}>

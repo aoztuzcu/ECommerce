@@ -1,16 +1,33 @@
 import { useState, useEffect, useCallback, useRef } from "react";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setSearchTerm } from "@/store/productsSlice";
+import { searchProducts } from "@/utils/request";
+import { debounce, throttle } from "@/utils/helpers";
 import TextInput from "@/components/base/TextInput";
 import cn from "classnames";
 
 const Searchbar = () => {
   const [isFocus, setIsFocus] = useState(false);
-
   const inputRef = useRef();
 
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const handleChange = (e) => {
+    if (e.target.value.length > 2) {
+      searchProducts(e.target.value).then((resp) => console.log(resp));
+    }
+  };
+  const debouncedChange = debounce(handleChange, 500);
+  const throttledChange = throttle(handleChange, 500);
+
   const handleKeyPress = useCallback((e) => {
-    console.log(e);
-    if (e.key === "Enter" || e.keyCode === 13) {
-      console.log(e.target.value);
+    if (!!e.target.value) {
+      if (e.key === "Enter" || e.keyCode === 13) {
+        dispatch(setSearchTerm(e.target.value));
+        navigate("/search-results");
+      }
     }
   }, []);
 
@@ -31,6 +48,7 @@ const Searchbar = () => {
       name="search"
       size="sm"
       variant="transparent"
+      onChange={throttledChange}
       onFocus={() => setIsFocus(true)}
       onBlur={() => setIsFocus(false)}
       className={cls}

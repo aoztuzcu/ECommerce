@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { login } from "@/utils/request";
+import { toast } from "react-toastify";
 
 const storageKey = "authUser";
 const storedUser = JSON.parse(sessionStorage.getItem(storageKey));
@@ -28,6 +29,7 @@ const authSlice = createSlice({
     logout: (state) => {
       state.user = null;
       sessionStorage.removeItem(storageKey);
+      toast.info("Çıkış Yapıldı");
     },
   },
   extraReducers: (builder) => {
@@ -40,6 +42,9 @@ const authSlice = createSlice({
         state.isLoading = false;
         state.user = action.payload;
         sessionStorage.setItem(storageKey, JSON.stringify(action.payload));
+        toast.success(
+          `${state.user.firstName} ${state.user.lastName}  Hoşgeldin`
+        );
       })
       .addCase(loginAsync.rejected, (state, action) => {
         state.isLoading = false;

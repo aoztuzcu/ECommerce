@@ -12,6 +12,7 @@ const Button = ({
   className,
   onClick,
   disabled,
+  icon,
 }) => {
   const cls = cn(
     "rounded-lg",
@@ -38,6 +39,7 @@ const Button = ({
       onClick={disabled ? null : onClick}
       disabled={disabled}
     >
+      {icon && icon}
       {children}
     </button>
   );
@@ -50,9 +52,10 @@ Button.propTypes = {
   size: PropTypes.oneOf(["sm", "lg"]),
   variant: PropTypes.oneOf(["primary", "secondary", "light", "dark"]),
   type: PropTypes.oneOf(["button", "submit", "reset"]),
-  children: PropTypes.node.isRequired,
+  children: PropTypes.node,
   className: PropTypes.string,
   onClick: PropTypes.func,
   disabled: PropTypes.bool,
+  icon: PropTypes.element,
 };
 export default Button;
