@@ -97,7 +97,7 @@ ProductCard.propTypes = {
   price: PropTypes.number.isRequired,
   rating: PropTypes.number.isRequired,
   discountPercentage: PropTypes.number.isRequired,
-  brand: PropTypes.string.isRequired,
+  brand: PropTypes.string, // isRequired işareti kaldırıldı
   category: PropTypes.string.isRequired,
   thumbnail: PropTypes.string.isRequired,
   className: PropTypes.string,

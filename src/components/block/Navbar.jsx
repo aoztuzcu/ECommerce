@@ -19,7 +19,7 @@ const Navbar = () => {
   const subNavCls = cn(
     "absolute left-0 top-0 z-10 w-full bg-slate-50 p-6 shadow-xl",
     "opacity-0 -translate-y-full transition-all will-change-auto duration-500 ease-in-out",
-    { "opacity-100 translate-y-0 top-14 ": isOpen }
+    { "opacity-100 translate-y-0 top-14": isOpen }
   );
 
   const subNavItemCls = cn(
@@ -31,7 +31,7 @@ const Navbar = () => {
   return (
     <nav className="relative">
       <div className="relative z-20 bg-primary-dark">
-        <ul className="flex items-center justify-center gap-4 py-3 ">
+        <ul className="flex items-center justify-center gap-4 py-3">
           <NavItem to="/" onMouseEnter={() => setIsOpen(true)}>
             Kategoriler
           </NavItem>
@@ -46,14 +46,25 @@ const Navbar = () => {
       <div className={subNavCls} onMouseLeave={() => setIsOpen(false)}>
         <ul className="max-w-3xl mx-auto flex justify-center items-center flex-wrap gap-x-4 py-4">
           {categories.map((cat, index) => {
-            const to = `/category/${cat}`;
-            return (
-              <li key={index}>
-                <Link to={to} className={subNavItemCls}>
-                  {unSlugify(cat)}
-                </Link>
-              </li>
-            );
+            // Kategorinin bir nesne olup olmadığını kontrol edin ve uygun özelliği render edin
+            if (typeof cat === "object" && cat !== null) {
+              const { slug, name, url } = cat; // Nesneden gerekli özellikleri alın
+              const to = `/category/${slug}`; // slug veya uygun bir özellik kullanarak yol oluşturun
+              return (
+                <li key={index}>
+                  <Link to={to} className={subNavItemCls}>
+                    {unSlugify(slug) || name}{" "}
+                    {/* Nesnenin uygun özelliğini render edin */}
+                  </Link>
+                </li>
+              );
+            } else {
+              console.error(
+                `Category at index ${index} is not an object:`,
+                cat
+              );
+              return null; // Nesne olmayan kategorileri atlayın
+            }
           })}
         </ul>
       </div>
